@@ -25,6 +25,15 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
- 
 
  
+  textarea {
+  width: 100px;
+  height: 100px;
+  box-sizing: border-box;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  resize: none;
+  overflow: hidden;
+}

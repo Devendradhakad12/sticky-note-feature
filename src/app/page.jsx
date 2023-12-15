@@ -1,26 +1,10 @@
 "use client";
 
-import { useState } from "react";
-import { StickyNote } from "lucide-react";
+import { ShowNote } from "@/components/ShowNote";
 import clsx from "clsx";
-import Whiteboard from "@/components/drag";
+import { StickyNote } from "lucide-react";
+import { useState } from "react";
 
-// Show Note Function
-const ShowNote = ({ note, currentNote, setCurrentNote }) => {
-  return (
-    <input
-      readOnly={currentNote !== note.id ? true : false}
-      type="text"
-      value={note?.text}
-      onDoubleClick={() => setCurrentNote(note.id)}
-      style={{ left: note.x, top: note.y, backgroundColor: note.bgColor }}
-      className=" w-[50px] h-[50px] absolute read-only:cursor-default read-only:outline-none "
-      onChange={() => {}}
-    />
-  );
-};
-
-// Main Function
 export default function WhiteBoard() {
   const [templates, setTemplates] = useState([
     "yellow",
@@ -41,6 +25,7 @@ export default function WhiteBoard() {
 
   //  Whiteboard Click Handler
   const handleWhiteboardClick = (event) => {
+    event.stopPropagation();
     if (pickColor !== null) {
       const { offsetX, offsetY } = event.nativeEvent;
       const newNote = {
@@ -58,9 +43,20 @@ export default function WhiteBoard() {
     setCurrentNote(null);
   };
 
+  // Update Note Function
+  const UpdateNote = (e) => {
+    let updatedNote = notes.map((note) => {
+      if (note.id == e.target.id) {
+        note.text = e.target.value;
+      }
+      return note;
+    });
+    setNotes(updatedNote);
+  };
+
   return (
     <div
-      className="flex min-h-screen flex-col p-24"
+      className={`flex min-h-screen flex-col p-24`}
       onClick={handleWhiteboardClick}
     >
       {/* Sticky Note Button */}
@@ -69,7 +65,7 @@ export default function WhiteBoard() {
           <StickyNote />
         </button>
         {open && (
-          <div className="ml-7 absolute top-1 left-1">
+          <div className="ml-7 z-50 absolute top-1 left-1">
             {templates?.map((item) => (
               <div
                 key={item}
@@ -95,6 +91,7 @@ export default function WhiteBoard() {
                 key={note.id}
                 currentNote={currentNote}
                 setCurrentNote={setCurrentNote}
+                UpdateNote={UpdateNote}
               />
             ))}
           </>
