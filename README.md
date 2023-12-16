@@ -10,7 +10,7 @@
 
 ![App Screenshot](https://res.cloudinary.com/dvkfio4zq/image/upload/v1702712525/upload/ewdgidsv69hutuf4pfkm.png)
 
-## Features :
+## Features 
 1. Users can now select a sticky note.
 2. After selecting a sticky note, they can click on the desired location on the whiteboard to place the note.
 3. As users type content into the sticky note, its Font Size automatically
