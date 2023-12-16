@@ -4,6 +4,7 @@ import { ShowNote } from "@/components/ShowNote";
 import clsx from "clsx";
 import { StickyNote } from "lucide-react";
 import { useState } from "react";
+import AnimatedCursor from "react-animated-cursor"
 
 export default function WhiteBoard() {
   const [templates, setTemplates] = useState([
@@ -16,7 +17,7 @@ export default function WhiteBoard() {
   const [pickColor, setPickColor] = useState(null);
   const [notes, setNotes] = useState([]);
   const [currentNote, setCurrentNote] = useState(null);
-
+   
   // Color Picker Handler
   const handlePickColor = (color) => {
     setPickColor(color);
@@ -59,6 +60,8 @@ export default function WhiteBoard() {
       className={`flex min-h-screen flex-col p-24`}
       onClick={handleWhiteboardClick}
     >
+       <AnimatedCursor showSystemCursor={pickColor === null ? true : false}  /> 
+   
       {/* Sticky Note Button */}
       <div className="relative">
         <button onClick={() => setOpen((op) => !op)}>
