@@ -29,6 +29,7 @@ export const ShowNote = ({ note, currentNote, setCurrentNote, UpdateNote }) => {
         top: note.y,
         backgroundColor: note.bgColor,
         fontSize: calculateFontSize(),
+        color:"black"
       }}
       className=" p-3 absolute read-only:cursor-default read-only:outline-none "
       onChange={(e) => UpdateNote(e)}
