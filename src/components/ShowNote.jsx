@@ -1,12 +1,11 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 // Show Note Component
 export const ShowNote = ({ note, UpdateNote }) => {
   const [fontSize,setFontSize] = useState(12)
   const [charCount,setCharCount] = useState(25)
-  
   const calculateFontSize = () => {
     if (charCount == note.text.length) {
      setFontSize(fontSize-2)
