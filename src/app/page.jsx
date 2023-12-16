@@ -16,7 +16,7 @@ export default function WhiteBoard() {
   const [open, setOpen] = useState(false);
   const [pickColor, setPickColor] = useState(null);
   const [notes, setNotes] = useState([]);
-  const [currentNote, setCurrentNote] = useState(null);
+
    
   // Color Picker Handler
   const handlePickColor = (color) => {
@@ -26,7 +26,6 @@ export default function WhiteBoard() {
 
   //  Whiteboard Click Handler
   const handleWhiteboardClick = (event) => {
-    event.stopPropagation();
     if (pickColor !== null) {
       const { offsetX, offsetY } = event.nativeEvent;
       const newNote = {
@@ -36,12 +35,11 @@ export default function WhiteBoard() {
         text: "",
         bgColor: pickColor,
       };
-      setCurrentNote(newNote.id);
       setNotes((prev) => [...prev, newNote]);
       setPickColor(null);
       return;
     }
-    setCurrentNote(null);
+    
   };
 
   // Update Note Function
@@ -72,7 +70,6 @@ export default function WhiteBoard() {
             {templates?.map((item) => (
               <div
                 key={item}
-                draggable="true"
                 onClick={() => handlePickColor(item)}
                 className={clsx(
                   `w-10 h-10 m-2 border flex gap-5 cursor-pointer`
@@ -92,8 +89,6 @@ export default function WhiteBoard() {
               <ShowNote
                 note={note}
                 key={note.id}
-                currentNote={currentNote}
-                setCurrentNote={setCurrentNote}
                 UpdateNote={UpdateNote}
               />
             ))}

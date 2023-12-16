@@ -1,37 +1,34 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 // Show Note Component
-export const ShowNote = ({ note, currentNote, setCurrentNote, UpdateNote }) => {
+export const ShowNote = ({ note, UpdateNote }) => {
+  const [fontSize,setFontSize] = useState(12)
+  const [charCount,setCharCount] = useState(25)
+  
   const calculateFontSize = () => {
-    const baseFontSize = 16;
-    const scaleFactor = 0.9;
-    const maxFontSize = 30;
-
-    const lines = note.text.split(" ").length;
-    const calculatedFontSize = Math.min(
-      maxFontSize,
-      baseFontSize * scaleFactor ** lines
-    );
-    return `${calculatedFontSize}px`;
+    if (charCount == note.text.length) {
+     setFontSize(fontSize-2)
+      setCharCount(charCount*2)
+    }
+    return `${fontSize}px`;
   };
 
   return (
     <textarea
-      // readOnly={currentNote != note.id ? true : false}
       type="text"
       value={note?.text}
-      onDoubleClick={() => setCurrentNote(note.id)}
       id={note.id}
       style={{
         left: note.x,
         top: note.y,
         backgroundColor: note.bgColor,
         fontSize: calculateFontSize(),
-        color:"black"
+        color: "black",
+        padding: "12px",
+        position: "absolute",
       }}
-      className=" p-3 absolute read-only:cursor-default read-only:outline-none "
       onChange={(e) => UpdateNote(e)}
     />
   );
